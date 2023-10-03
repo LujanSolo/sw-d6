@@ -1,17 +1,19 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import LoginForm from './Login'
+
+// import { Outlet } from 'react-router-dom';
+
+
+import './App.css';
+import LoginForm from './Components/Login';
+import WeaponList from './Components/WeaponsList';
+
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
+    <div>
       <LoginForm />
-    </>
+      <WeaponList />
+    </div>
   )
 }
 
-export default App
+export default App;
