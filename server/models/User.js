@@ -1,3 +1,3 @@
-const bcrypt = require('bcrypt');
-const sequelize = require('../config/config');
+// const bcrypt = require('bcrypt');
+// const sequelize = require('../config/config');
 
