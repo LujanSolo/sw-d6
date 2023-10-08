@@ -3,15 +3,14 @@
 
 
 import './App.css';
-import LoginForm from './Components/Login';
-import WeaponList from './Components/WeaponsList';
-
+// import LoginForm from './Components/Login';
+// import WeaponList from './Components/WeaponsList';
+import CharacterSheet from './Components/CharacterSheet';
 
 function App() {
   return (
     <div>
-      <LoginForm />
-      <WeaponList />
+      <CharacterSheet />
     </div>
   )
 }
