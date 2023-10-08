@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import './CharacterSheet.css';
 
 const CharacterSheet = () => {
   const blankCharacterSheet = {
@@ -33,7 +34,6 @@ const CharacterSheet = () => {
     },
   };
 
-
   const [character, setCharacter] = useState(blankCharacterSheet);
 
   useEffect(() => {
@@ -58,7 +58,7 @@ const CharacterSheet = () => {
       attributes: {
         ...prevCharacter.attributes,
         [attribute]: {
-          ...prevCharacter.attribute[attribute],
+          ...prevCharacter.attributes[attribute],
           [subAttribute]: value,
         }
       },
@@ -98,22 +98,35 @@ const CharacterSheet = () => {
             onChange={handleInputChange}
           />
         </label>
+        <h3>ATTRIBUTES</h3>
+        {Object.entries(character.attributes).map(([attribute, { base, bonus }]) => (
+          <div className="attribute-section" key={attribute}>
+            <label>
+              {attribute.charAt(0).toUpperCase() + attribute.slice(1)} Base:
+              <input
+                className="diceValues"
+                type="number"
+                name={`attributes.${attribute}.base`}
+                value={base}
+                onChange={(e) => handleAttributeChange(attribute, 'base', e.target.value)}
+              />
+            </label>
+            <label>
+              {attribute.charAt(0).toUpperCase() + attribute.slice(1)} bonus:
+              <input
+                className="diceValues"
+                type="number"
+                min="1"
+                name={`attributes.${attribute}.bonus`}
+                value={bonus}
+                onChange={(e) => handleAttributeChange(attribute, 'bonus', e.target.value)}
+              />
+            </label>
+          </div>
+        ))}
       </form>
-      <h3>ATTRIBUTES</h3>
-      {Object.entries(character.attribues).map(([attribute, { base, bonus }]) => (
-        <div key={attribute}>
-          <label>
-            {attribute} Base:
-            <input
-              type="number"
-              name={`attributes.${attribute}.base`}
-              
-          </label>
-        </div>
-      ))}
     </div>
-  )
-
+  );
 };
 
 export default CharacterSheet;
