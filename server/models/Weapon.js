@@ -11,13 +11,15 @@ Weapon.init(
       primaryKey: true,
       autoIncrement: true
     },
-    title: {
-      type: DataTypes.STRING, 
-      allowNull: false,
+    name: {
+      type: DataTypes.STRING,
     },
     damage: {
       type: DataTypes.INTEGER
     },
+    bonus_damage: {
+      type: DataTypes.INTEGER
+    }
   },
   {
     // link to db connection
@@ -26,7 +28,7 @@ Weapon.init(
     timestamps: false,
     freezeTableName: true,
     underscored: true,
-    modelName: 'weapon'
+    modelName: 'weapons'
   }
 );
 
