@@ -5,7 +5,8 @@ const Weapon = require('../../models/Weapon');
 router.post('/', (req, res) => {
   Weapon.create({
     name: req.body.title,
-    damage: req.body.damage
+    damage: req.body.damage,
+    bonus_damage: req.body.bonus_damage
   })
     .then((newWeapon) => {
       res.json(newWeapon);

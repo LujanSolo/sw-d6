@@ -1,11 +1,11 @@
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/connection');
 
-class Weapon extends Model {}
+class Weapon extends Model { }
 
 Weapon.init(
   {
-    id: {
+    weapon_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true,
