@@ -31,6 +31,18 @@ router.put('/:weapon_id', (req, res) => {
     });
 });
 
+router.delete('/:book_id'), (req, res) => {
+  Weapon.destroy({
+    where: {
+      weapon_id: req.params.weapon_id,
+    },
+  })
+    .then((deletedWeapon) => {
+      res.json(deletedWeapon);
+    })
+    .catch((err) => res.json(err));
+}
+
 //* /api/weapons
 router.post('/', (req, res) => {
   Weapon.create({
