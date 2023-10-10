@@ -20,7 +20,7 @@ router.get('/:weapon_id', async (req, res) => {
 });
 
 router.put('/:weapon_id', async (req, res) => {
-  const weaponData = await Weapon.update(
+  const updatedWeapon = await Weapon.update(
     {
       name: req.body.name,
       damage: req.body.damage,
@@ -32,17 +32,19 @@ router.put('/:weapon_id', async (req, res) => {
       },
     }
   );
-  return res.json(weaponData);
+  return res.json(updatedWeapon);
 });
 
-router.delete('/:book_id'), async (req, res) => {
-  const weaponData = await Weapon.destroy({
+//* delete weapon by ID
+router.delete('/:weapon_id', (req, res) => {
+  Weapon.destroy({
     where: {
       weapon_id: req.params.weapon_id,
-    },
-  });
-  return res.json(weaponData);
-}
+    }
+  })
+    .then((weapon) => res.status(200).json(weapon))
+    .catch((err) => res.status(400).json(err));
+});
 
 //* /api/weapons
 router.post('/', async (req, res) => {
@@ -52,7 +54,7 @@ router.post('/', async (req, res) => {
 
 //* /api/weapons/seed
 router.post('/seed', async (req, res) => {
-  const weaponData = await Weapon.bulkCreate([
+  await Weapon.bulkCreate([
     {
       name: "Longbow",
       damage: 2,
@@ -89,8 +91,8 @@ router.post('/seed', async (req, res) => {
       bonus_damage: 1
     },
   ]);
-  
-    return res.json({ message: 'Weapons seeded successfully' }); 
+
+  return res.json({ message: 'Weapons seeded successfully' });
 });
 
 module.exports = router;
