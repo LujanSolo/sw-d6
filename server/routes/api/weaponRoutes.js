@@ -1,24 +1,27 @@
 const router = require('express').Router();
 const Weapon = require('../../models/Weapon');
 
-// GET ALL WEAPONS
+//* GET ALL WEAPONS
 router.get('/', async (req, res) => {
   const weaponData = await Weapon.findAll();
   return res.json(weaponData);
 });
 
-// GET A SINGLE WEAPON BY ID
+//* GET A SINGLE WEAPON BY ID
 router.get('/:weapon_id', async (req, res) => {
-  const weaponData = await Weapon.findOne(
-    {
-      where: {
-        weapon_id: req.params.weapon_id
-      }
+  try {
+    const weaponData = await Weapon.findByPk(req.params.weapon_id);
+    if (!weaponData) {
+      res.status(404).json({ mssage: 'No weapon with this ID' });
+      return;
     }
-  );
-  return res.json(weaponData);
+    res.status(200).json(weaponData);
+  } catch (err) {
+    res.status(500).json(err);
+  }
 });
 
+//* UPDATE WEAPON BY ID
 router.put('/:weapon_id', async (req, res) => {
   const updatedWeapon = await Weapon.update(
     {
