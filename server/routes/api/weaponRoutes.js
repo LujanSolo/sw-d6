@@ -3,8 +3,16 @@ const Weapon = require('../../models/Weapon');
 
 //* GET ALL WEAPONS
 router.get('/', async (req, res) => {
-  const weaponData = await Weapon.findAll();
-  return res.json(weaponData);
+  try{
+    const weaponData = await Weapon.findAll();
+    if (!weaponData) {
+      res.status(404).json({ message: 'No database' });
+      return;
+    }
+    res.status(200).json(weaponData);
+  } catch (err) {
+    res.status(500).json(err);
+  }
 });
 
 //* GET A SINGLE WEAPON BY ID
@@ -36,7 +44,7 @@ router.put('/:weapon_id', async (req, res) => {
         },
       }
     );
-    if (!updatedWeapon) {
+    if (!updatedWeapon[0]) {
       res.status(404).json({ message: 'No weapon with this ID' });
       return;
     }
@@ -47,14 +55,21 @@ router.put('/:weapon_id', async (req, res) => {
 });
 
 //* delete weapon by ID
-router.delete('/:weapon_id', (req, res) => {
-  Weapon.destroy({
-    where: {
-      weapon_id: req.params.weapon_id,
+router.delete('/:weapon_id', async (req, res) => {
+  try {
+    const deletedWeapon = await Weapon.destroy({
+      where: {
+        weapon_id: req.params.weapon_id,
+      }
+    });
+    if(!deletedWeapon) {
+      res.status(404).json({ message: 'No weapon with that ID' });
+      return;
     }
-  })
-    .then((weapon) => res.status(200).json(weapon))
-    .catch((err) => res.status(400).json(err));
+    res.status(200).json(deletedWeapon);
+  } catch (err) {
+    res.status(500).json(err);
+  }
 });
 
 //* /api/weapons
