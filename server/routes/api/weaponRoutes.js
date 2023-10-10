@@ -8,6 +8,18 @@ router.get('/', async (req, res) => {
   return res.json(weaponData);
 });
 
+// GET A SINGLE WEAPON BY ID
+router.get('/:weapon_id', async (req, res) => {
+  const weaponData = await Weapon.findOne(
+    {
+      where: {
+        weapon_id: req.params.weapon_id
+      }
+    }
+  );
+  return res.json(weaponData);
+});
+
 router.put('/:weapon_id', async (req, res) => {
   const weaponData = await Weapon.update(
     {
