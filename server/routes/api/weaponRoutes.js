@@ -2,9 +2,17 @@ const router = require('express').Router();
 
 const Weapon = require('../../models/Weapon');
 
+// GET ALL WEAPONS
+router.get('/', (req, res) => {
+  Weapon.findAll().then((weaponData) => {
+    res.json(weaponData);
+  });
+});
+
+//* /api/weapons
 router.post('/', (req, res) => {
   Weapon.create({
-    name: req.body.title,
+    name: req.body.name,
     damage: req.body.damage,
     bonus_damage: req.body.bonus_damage
   })
@@ -13,9 +21,10 @@ router.post('/', (req, res) => {
     })
     .catch((err) => {
       res.json(err);
-    }); 
+    });
 });
 
+//* /api/weapons/seed
 router.post('/seed', (req, res) => {
   Weapon.bulkCreate([
     {
@@ -53,8 +62,13 @@ router.post('/seed', (req, res) => {
       damage: 5,
       bonus_damage: 1
     },
-
   ])
-})
+    .then(() => {
+      res.json({ message: 'Weapons seeded successfully' });
+    })
+    .catch((err) => {
+      res.status(500).json({ error: err.message });
+    });
+});
 
 module.exports = router;
