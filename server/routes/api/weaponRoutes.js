@@ -9,6 +9,28 @@ router.get('/', (req, res) => {
   });
 });
 
+router.put('/:weapon_id', (req, res) => {
+  Weapon.update(
+    {
+      name: req.body.name,
+      damage: req.body.damage,
+      bonus_damage: req.body.bonus_damage
+    },
+    {
+      where: {
+        weapon_id: req.params.weapon_id,
+      },
+    }
+  )
+    .then((updatedWeapon) => {
+      res.json(updatedWeapon);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.json(err);
+    });
+});
+
 //* /api/weapons
 router.post('/', (req, res) => {
   Weapon.create({
