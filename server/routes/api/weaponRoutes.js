@@ -12,7 +12,7 @@ router.get('/:weapon_id', async (req, res) => {
   try {
     const weaponData = await Weapon.findByPk(req.params.weapon_id);
     if (!weaponData) {
-      res.status(404).json({ mssage: 'No weapon with this ID' });
+      res.status(404).json({ message: 'No weapon with this ID' });
       return;
     }
     res.status(200).json(weaponData);
@@ -23,19 +23,27 @@ router.get('/:weapon_id', async (req, res) => {
 
 //* UPDATE WEAPON BY ID
 router.put('/:weapon_id', async (req, res) => {
-  const updatedWeapon = await Weapon.update(
-    {
-      name: req.body.name,
-      damage: req.body.damage,
-      bonus_damage: req.body.bonus_damage
-    },
-    {
-      where: {
-        weapon_id: req.params.weapon_id,
+  try {
+    const updatedWeapon = await Weapon.update(
+      {
+        name: req.body.name,
+        damage: req.body.damage,
+        bonus_damage: req.body.bonus_damage
       },
+      {
+        where: {
+          weapon_id: req.params.weapon_id,
+        },
+      }
+    );
+    if (!updatedWeapon) {
+      res.status(404).json({ message: 'No weapon with this ID' });
+      return;
     }
-  );
-  return res.json(updatedWeapon);
+    res.status(200).json(updatedWeapon);
+  } catch (err) {
+    res.status(500).json(err);
+  }
 });
 
 //* delete weapon by ID
