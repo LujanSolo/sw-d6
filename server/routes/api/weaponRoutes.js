@@ -3,14 +3,13 @@ const router = require('express').Router();
 const Weapon = require('../../models/Weapon');
 
 // GET ALL WEAPONS
-router.get('/', (req, res) => {
-  Weapon.findAll().then((weaponData) => {
-    res.json(weaponData);
-  });
+router.get('/', async (req, res) => {
+  const weaponData = await Weapon.findAll();
+  return res.json(weaponData);
 });
 
-router.put('/:weapon_id', (req, res) => {
-  Weapon.update(
+router.put('/:weapon_id', async (req, res) => {
+  const weaponData = await Weapon.update(
     {
       name: req.body.name,
       damage: req.body.damage,
@@ -21,46 +20,28 @@ router.put('/:weapon_id', (req, res) => {
         weapon_id: req.params.weapon_id,
       },
     }
-  )
-    .then((updatedWeapon) => {
-      res.json(updatedWeapon);
-    })
-    .catch((err) => {
-      console.log(err);
-      res.json(err);
-    });
+  );
+  return res.json(weaponData);
 });
 
-router.delete('/:book_id'), (req, res) => {
-  Weapon.destroy({
+router.delete('/:book_id'), async (req, res) => {
+  const weaponData = await Weapon.destroy({
     where: {
       weapon_id: req.params.weapon_id,
     },
-  })
-    .then((deletedWeapon) => {
-      res.json(deletedWeapon);
-    })
-    .catch((err) => res.json(err));
+  });
+  return res.json(weaponData);
 }
 
 //* /api/weapons
-router.post('/', (req, res) => {
-  Weapon.create({
-    name: req.body.name,
-    damage: req.body.damage,
-    bonus_damage: req.body.bonus_damage
-  })
-    .then((newWeapon) => {
-      res.json(newWeapon);
-    })
-    .catch((err) => {
-      res.json(err);
-    });
+router.post('/', async (req, res) => {
+  const weaponData = await Weapon.create(req.body);
+  return res.json(weaponData);
 });
 
 //* /api/weapons/seed
-router.post('/seed', (req, res) => {
-  Weapon.bulkCreate([
+router.post('/seed', async (req, res) => {
+  const weaponData = await Weapon.bulkCreate([
     {
       name: "Longbow",
       damage: 2,
@@ -96,13 +77,9 @@ router.post('/seed', (req, res) => {
       damage: 5,
       bonus_damage: 1
     },
-  ])
-    .then(() => {
-      res.json({ message: 'Weapons seeded successfully' });
-    })
-    .catch((err) => {
-      res.status(500).json({ error: err.message });
-    });
+  ]);
+  
+    return res.json({ message: 'Weapons seeded successfully' }); 
 });
 
 module.exports = router;
