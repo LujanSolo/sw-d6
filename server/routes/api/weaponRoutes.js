@@ -3,7 +3,7 @@ const Weapon = require('../../models/Weapon');
 
 //* GET ALL WEAPONS
 router.get('/', async (req, res) => {
-  try{
+  try {
     const weaponData = await Weapon.findAll();
     if (!weaponData) {
       res.status(404).json({ message: 'No database' });
@@ -62,7 +62,7 @@ router.delete('/:weapon_id', async (req, res) => {
         weapon_id: req.params.weapon_id,
       }
     });
-    if(!deletedWeapon) {
+    if (!deletedWeapon) {
       res.status(404).json({ message: 'No weapon with that ID' });
       return;
     }
