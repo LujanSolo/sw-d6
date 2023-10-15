@@ -5,7 +5,6 @@ import Character from '../classes/character';
 export default function CharacterSheet() {
   const { register, handleSubmit, formState: { errors } } = useForm();
 
-  //! change this to a POST 
   const onSubmit = async (data) => {
     const character = new Character(data.name, data.classType, data.age, data.species);
     console.log(character);
@@ -32,6 +31,7 @@ export default function CharacterSheet() {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
+
       <div className="container">
         <input type="text" placeholder="Character Name" {...register} />
         <input type="text" placeholder="Character Class" {...register} />
@@ -44,6 +44,16 @@ export default function CharacterSheet() {
         <option value="Varje">Varje</option>
         <option value="Kaminoan">Kaminoan</option>
       </select>
+      </div>
+      
+      <div className="container">
+        <h2>ATTRIBUTES</h2>
+        <h3>Strength</h3>
+        <h3>Dexterity</h3>
+        <h3>Perception</h3>
+        <h3>Knowledge</h3>
+        <h3>Mechanical</h3>
+        <h3>Technical</h3>
       </div>
       <br />
       <input className="char-submit-btn" type="submit" />
