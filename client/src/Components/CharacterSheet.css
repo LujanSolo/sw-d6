@@ -4,6 +4,8 @@ html {
 
 body {
   font-size: 2rem;
+  display: flex;
+  justify-content: center;
 }
 .diceValues {
   width: 2em;
