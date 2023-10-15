@@ -4,35 +4,35 @@ const Character = require('../../models/Weapon');
 //* GET ALL CHARACTERS
 router.get('/', async (req, res) => {
   try {
-    const weaponData = await Weapon.findAll();
-    if (!weaponData) {
+    const characterData = await Weapon.findAll();
+    if (!characterData) {
       res.status(404).json({ message: 'No database' });
       return;
     }
-    res.status(200).json(weaponData);
+    res.status(200).json(characterData);
   } catch (err) {
     res.status(500).json(err);
   }
 });
 
-//* GET A SINGLE WEAPON BY ID
-router.get('/:weapon_id', async (req, res) => {
+//* GET A SINGLE CHARACTER BY ID
+router.get('/:character_id', async (req, res) => {
   try {
-    const weaponData = await Weapon.findByPk(req.params.weapon_id);
-    if (!weaponData) {
-      res.status(404).json({ message: 'No weapon with this ID' });
+    const characterData = await Character.findByPk(req.params.character_id);
+    if (!characterData) {
+      res.status(404).json({ message: 'No character with this ID' });
       return;
     }
-    res.status(200).json(weaponData);
+    res.status(200).json(characterData);
   } catch (err) {
     res.status(500).json(err);
   }
 });
 
-//* UPDATE WEAPON BY ID
-router.put('/:weapon_id', async (req, res) => {
+//* UPDATE CHARACTER BY ID
+router.put('/:character_id', async (req, res) => {
   try {
-    const updatedWeapon = await Weapon.update(
+    const updatedCharacter = await Character.update(
       {
         name: req.body.name,
         damage: req.body.damage,
@@ -40,85 +40,42 @@ router.put('/:weapon_id', async (req, res) => {
       },
       {
         where: {
-          weapon_id: req.params.weapon_id,
+          character_id: req.params.character_id,
         },
       }
     );
-    if (!updatedWeapon[0]) {
-      res.status(404).json({ message: 'No weapon with this ID' });
+    if (!updatedCharacter[0]) {
+      res.status(404).json({ message: 'No character with this ID' });
       return;
     }
-    res.status(200).json(updatedWeapon);
+    res.status(200).json(updatedCharacter);
   } catch (err) {
     res.status(500).json(err);
   }
 });
 
-//* delete weapon by ID
-router.delete('/:weapon_id', async (req, res) => {
+//* delete CHARACTER by ID
+router.delete('/:character_id', async (req, res) => {
   try {
-    const deletedWeapon = await Weapon.destroy({
+    const deletedCharacter = await Character.destroy({
       where: {
-        weapon_id: req.params.weapon_id,
+        character_id: req.params.character_id,
       }
     });
-    if (!deletedWeapon) {
-      res.status(404).json({ message: 'No weapon with that ID' });
+    if (!deletedCharacter) {
+      res.status(404).json({ message: 'No character with that ID' });
       return;
     }
-    res.status(200).json(deletedWeapon);
+    res.status(200).json(deletedCharacter);
   } catch (err) {
     res.status(500).json(err);
   }
 });
 
-//* /api/weapons
-router.post('/', async (req, res) => {
-  const weaponData = await Weapon.create(req.body);
-  return res.json(weaponData);
-});
-
-//* /api/weapons/seed
-router.post('/seed', async (req, res) => {
-  await Weapon.bulkCreate([
-    {
-      name: "Longbow",
-      damage: 2,
-      bonus_damage: 2
-    },
-    {
-      name: "Black-powder Pistol",
-      damage: 2,
-      bonus_damage: 2
-    },
-    {
-      name: "Musket",
-      damage: 3,
-      bonus_damage: 0
-    },
-    {
-      name: "Blaster Pistol",
-      damage: 4,
-      bonus_damage: 0
-    },
-    {
-      name: "Heavy Blaster Pistol",
-      damage: 5,
-      bonus_damage: 0
-    },
-    {
-      name: "Blaster Rifle",
-      damage: 5,
-      bonus_damage: 0
-    },
-    {
-      name: "Heavy Blaster Rifle",
-      damage: 5,
-      bonus_damage: 1
-    },
-  ]);
-
-  return res.json({ message: 'Weapons seeded successfully' });
+//* /api/characters
+router.post('/characters', async (req, res) => {
+  const characterData = await Character.create(req.body);
+  return res.json(characterData);
 });
 
 module.exports = router;
