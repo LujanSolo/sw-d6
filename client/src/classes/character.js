@@ -5,6 +5,6 @@ class Character {
     this.age = age;
     this.species = species;
   }
-};
+}
 
 export default Character;
