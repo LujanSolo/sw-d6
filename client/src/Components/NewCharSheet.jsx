@@ -14,14 +14,19 @@ export default function NewCharSheet() {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <label for="charName">CHARACTER NAME: </label>
+      <label htmlFor="charName">CHARACTER NAME: </label>
       <input id="charName" type='text' placeholder="Character's name" {...register} />
 
-      <label for="charName">CHARACTER NAME: </label>
-      <input id="charName" type='text' placeholder="Character's name" {...register} />
+      <label htmlFor="archetype">ARCHETYPE: </label>
+      <input id="archetype" type='text' placeholder="ex: Jedi, Smuggler" {...register} />
 
-      <label for="charName">CHARACTER NAME: </label>
-      <input id="charName" type='text' placeholder="Character's name" {...register} />
+      <label htmlFor="species">SELECT SPECIES: </label>
+      <select id="species" {...register("Species")}>
+        <option value="Januvrian">Januvrian</option>
+        <option value="Ord'uu">Ord'uu</option>
+        <option value="Varje">Varje</option>
+        <option value="Kaminoan">Kaminoan</option>
+      </select>
 
       
       
