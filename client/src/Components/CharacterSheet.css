@@ -7,23 +7,27 @@ body {
   font-family: monoid, sans-serif;
 }
 
-.container {
+form {
   margin: 3em;
+  color: white;
 }
 
-input {
-  margin-right: 1em;
-  color: black;
+label {
+  padding-right: 1em;
 }
 
-h2 {
-  font-size: 2.4rem;
+
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px; /* Add some spacing between containers */
 }
 
-.att-values {
-  width: 4rem;
-  font-size: 2rem;
-}
+
+
+
 
 
 
