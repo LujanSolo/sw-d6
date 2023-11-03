@@ -8,6 +8,7 @@ body {
 }
 
 form {
+  font-size: 1.4rem;
   margin: 3em;
   color: white;
 }
@@ -16,13 +17,15 @@ label {
   padding-right: 1em;
 }
 
-
-
 .container {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 10px; /* Add some spacing between containers */
+  margin-bottom: 1em;
+}
+
+select {
+  width: 50%;
 }
 
 

@@ -3,6 +3,8 @@ import './CharacterSheet.css';
 import Character from '../classes/character';
 import { useState, useEffect } from 'react';
 
+
+
 // export default function CharacterSheet() {
 //   const { register, handleSubmit, formState: { errors } } = useForm();
 
@@ -125,7 +127,17 @@ export default function CharacterSheet() {
   // })
 
   const attributeModifiers = {
-    'Januvrian': { Strength: { min: 0, max: 7 }, Technical: { min: 0, max: 5 }, totalPoints: 12 },
+    'Januvrian': {
+      Strength: { min: 2, max: 5 },
+      Perception: { min: 2, max: 4 },
+      Knowledge: { min: 2, max: 4 },
+      Technical: { min: 1, max: 4 },
+
+      totalPoints: 12
+    },
+
+
+
     'Ord\'uu': { Strength: { min: 0, max: 5 }, Technical: { min: 0, max: 5 }, totalPoints: 10 },
     'Varje': { Strength: { min: 1, max: 6 }, Technical: { min: 0, max: 4 }, totalPoints: 8 },
     'Kaminoan': { Strength: { min: 0, max: 6 }, Technical: { min: 0, max: 5 }, totalPoints: 11 },
